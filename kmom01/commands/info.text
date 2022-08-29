@@ -1,4 +1,0 @@
-1. Linux
-2. cal 07 2022
-3. date +"%Y/%m/%d"
-4. du -c usr/bin/
