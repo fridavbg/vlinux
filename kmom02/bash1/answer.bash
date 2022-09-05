@@ -220,7 +220,7 @@ assertEqual "3.2" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER=$(find apache2 -maxdepth 1 -type d -name *conf* | sort -k1) 
+ANSWER=$(find apache2 -maxdepth 1 -type d -name -- *glob* *conf* | sort -k1) 
 
 
 # I will now test your answer - change false to true to get a hint.
@@ -281,11 +281,12 @@ assertEqual "4.2" false
 #
 # Write your code below and put the answer into the variable ANSWER.
 #
+# $(find apache2/sites-available -name *ssl*.conf && find apache2/mods-available -name *ssl*.conf)
 
-ANSWER=$(find apache2/sites-available -name *ssl*.conf && find apache2/mods-available -name *ssl*.conf) 
+ANSWER="" 
 
 # I will now test your answer - change false to true to get a hint.
-assertEqual "4.3" true
+assertEqual "4.3" false
 
 
 exitWithSummary
