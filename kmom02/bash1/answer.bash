@@ -47,9 +47,9 @@ echo "${PROMPT}Ready to begin."
 #
 # Write your code below and put the answer into the variable ANSWER.
 #
-path="$(pwd)"
 
-ANSWER=$(ls "$path"/apache2)
+
+ANSWER="$(ls apache2)"
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.1" false
@@ -67,12 +67,7 @@ assertEqual "1.1" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(ls -F apache2)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.2" false
@@ -93,12 +88,7 @@ assertEqual "1.2" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(cd apache2/mods-available/ && ls a*.conf)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.3" false
@@ -112,12 +102,7 @@ assertEqual "1.3" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(cd apache2/sites-available && ls -a)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.4" false
@@ -149,12 +134,7 @@ assertEqual "1.4" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(mkdir -p backup/conf/ && cp apache2/mods-available/*.conf backup/conf/ && ls -S backup/conf/)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.1" false
@@ -173,12 +153,7 @@ assertEqual "2.1" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(mkdir -p backup/php/ && mv backup/conf/php* backup/php/ && ls backup/conf/)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.2" false
@@ -193,12 +168,7 @@ assertEqual "2.2" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(rm backup/conf/proxy* && ls backup/conf/)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.3" false
@@ -221,12 +191,7 @@ assertEqual "2.3" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(find apache2 -name apache2.conf)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "3.1" false
@@ -239,12 +204,7 @@ assertEqual "3.1" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(find apache2 -empty)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "3.2" false
@@ -260,15 +220,11 @@ assertEqual "3.2" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
+ANSWER=$(find apache2 -maxdepth 1 -type d -name *conf* | sort -k1) 
 
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
 
 # I will now test your answer - change false to true to get a hint.
-assertEqual "3.3" false
+assertEqual "3.3" true
 
 # --------------------------------------------------------------------------
 # Section 4. Extra assignments 
@@ -289,15 +245,10 @@ assertEqual "3.3" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(ls -Sr apache2/conf-available) 
 
 # I will now test your answer - change false to true to get a hint.
-assertEqual "4.1" false
+assertEqual "4.1" true
 
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 # Exercise 4.2 (3 points) 
@@ -314,12 +265,7 @@ assertEqual "4.1" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(cp backup/php/* backup && rm -rf backup/php && ls -F backup/) 
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "4.2" false
@@ -336,15 +282,10 @@ assertEqual "4.2" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(find apache2/sites-available -name *ssl*.conf && find apache2/mods-available -name *ssl*.conf) 
 
 # I will now test your answer - change false to true to get a hint.
-assertEqual "4.3" false
+assertEqual "4.3" true
 
 
 exitWithSummary
