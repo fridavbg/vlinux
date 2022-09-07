@@ -26,7 +26,10 @@ function usage {
         "  cal [events]     Print out current calendar with(out) events."
         "  uptime           Show systems built-in uptime."
         "  greet            Greet the current user."
-        "  loop <min> <max> Prints"
+        "  loop <min> <max> Print numbers from min to max"
+        "  lower Print all numbers lower than 42" 
+        "  reverse Print all arguments in reverse order" 
+        "  all Runs all functions" 
         ""
         "Options:"
         "  --help, -h     Print help."
@@ -99,6 +102,45 @@ function app-loop {
     done
 }
 
+#
+# Function for looping a list of numbers 
+# and only print lower than 42
+#
+function app-lower {
+    for value in "$@"
+    do
+        if (( "$value" < 42))
+        then
+            echo "$value"
+        fi  
+    done
+}
+
+#
+# Function for printing a sentence backwards
+#
+function app-reverse {
+    echo "$*" | rev
+}
+
+#
+# Function to run all functions
+#
+function app-all {
+    echo
+    app-cal
+    echo 
+    app-uptime
+    echo
+    app-greet
+    echo 
+    app-loop 1 4
+    echo
+    app-lower 34 56 32 12 11 2 3 4
+    echo 
+    app-reverse Hola como estas
+}
+
 
 #
 # Process options
@@ -119,7 +161,10 @@ while (($#)); do
         cal         \
         | uptime       \
         | greet         \
-        | loop)
+        | loop     \
+        | lower \
+        | reverse\
+        | all)
         command=$1
         shift
         app-"$command" "$@"
