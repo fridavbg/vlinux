@@ -23,9 +23,10 @@ function usage {
         "Usage: $SCRIPT [options] <command> [arguments]"
         ""
         "Command:"
-        "  cal [events]    Print out current calendar with(out) events."
-        "  uptime          Show systems built-in uptime."
-        "  command2 [anything]  Demo of command using arguments."
+        "  cal [events]     Print out current calendar with(out) events."
+        "  uptime           Show systems built-in uptime."
+        "  greet            Greet the current user."
+        "  loop <min> <max> Prints"
         ""
         "Options:"
         "  --help, -h     Print help."
@@ -62,40 +63,42 @@ function version {
 }
 
 #
+# Function for displaying a calender
+#
+function app-cal {
+    echo "This is output from cal, showing a calender."
+    cal
+}
+
+#
 # Function for showing the systems built-in uptime
 #
 function app-uptime {
-
-        echo
-        uptime
+    echo "The system built in uptime is."
+    uptime
 }
 
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function for greeting the current user
 #
-function app-command2 {
-    echo "This is output from command2."
-    echo "Command 2 takes additional arguments which currently are:"
-    echo " Number of arguments = '$#'"
-    echo " List of arguments = '$*'"
+function app-greet {
+    echo "Bienvenido a la programma de commandos,  "
+    echo 
+    whoami
 }
 
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function for looping from min to max
 #
-function app-cal {
-    local events="$1"
-
-    echo "This is output from command3, showing the current calender."
-    cal -3
-
-    if [ "$events" = "events" ]; then
-        echo
-        cal
-    fi
+function app-loop {
+    min=$1
+    max=$2
+    for (( i=min; i<=max; i++ ))
+    do
+            echo "$i"  
+    done
 }
+
 
 #
 # Process options
@@ -113,12 +116,13 @@ while (($#)); do
         exit 0
         ;;
 
-    cal | \
-        uptime | \
-        command2)
+        cal         \
+        | uptime       \
+        | greet         \
+        | loop)
         command=$1
         shift
-        app-"$command" "$*"
+        app-"$command" "$@"
         exit 0
         ;;
 
