@@ -62,12 +62,10 @@ function version {
 }
 
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function for showing the systems built-in uptime
 #
 function app-uptime {
-    echo "This is output from command3, showing the system uptime."
-    
+
         echo
         uptime
 }
