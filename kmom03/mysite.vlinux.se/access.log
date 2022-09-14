@@ -1,0 +1,7 @@
+172.17.0.1 - - [14/Sep/2022:15:11:38 +0000] "GET / HTTP/1.1" 200 305 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+172.17.0.1 - - [14/Sep/2022:15:11:39 +0000] "GET /favicon.ico HTTP/1.1" 404 496 "http://mysite.vlinux.se:8080/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+127.0.0.1 - - [14/Sep/2022:15:26:12 +0000] "GET / HTTP/1.0" 200 268 "-" "w3m/0.5.3+git20210102"
+172.17.0.1 - - [14/Sep/2022:15:32:54 +0000] "GET / HTTP/1.1" 200 300 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+127.0.0.1 - - [14/Sep/2022:15:33:23 +0000] "GET / HTTP/1.0" 200 263 "-" "w3m/0.5.3+git20210102"
+127.0.0.1 - - [14/Sep/2022:15:35:44 +0000] "GET / HTTP/1.0" 200 263 "-" "w3m/0.5.3+git20210102"
+172.17.0.1 - - [14/Sep/2022:15:37:31 +0000] "GET / HTTP/1.1" 304 248 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
