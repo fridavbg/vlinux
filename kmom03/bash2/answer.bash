@@ -104,12 +104,9 @@ assertEqual "1.3" true
 # Write your code below and put the answer into the variable ANSWER.
 #
 
+pansar_notedpad=$(grep 'notepad' $FILE)
 
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$pansar_notedpad
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.4" false
@@ -122,12 +119,9 @@ assertEqual "1.4" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
+last_four_rows=$(tail -n 4 $FILE)
 
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$last_four_rows
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.5" false
@@ -142,12 +136,7 @@ assertEqual "1.5" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(grep -e 'Log opened' $FILE | head -n 1)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.6" false
@@ -160,12 +149,7 @@ assertEqual "1.6" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(grep -m3 'wasa' $FILE | tail -n 1)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.7" false
@@ -178,15 +162,10 @@ assertEqual "1.7" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(grep '11:15' $FILE | wc -l)
 
 # I will now test your answer - change false to true to get a hint.
-assertEqual "1.8" false
+assertEqual "1.8" true
 
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 # Exercise 1.9 (1 points) 
@@ -196,12 +175,7 @@ assertEqual "1.8" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(grep '07:48' $FILE | head -n 1)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.9" false
@@ -214,12 +188,7 @@ assertEqual "1.9" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-
-
-
-
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(grep 'Wed Jun 17 2015' $FILE -A 10 | tail -n10)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.10" false
