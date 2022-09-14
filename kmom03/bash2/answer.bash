@@ -162,7 +162,7 @@ assertEqual "1.7" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER=$(grep '11:15' $FILE | wc -l)
+ANSWER=$(grep -c '11:15' $FILE)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.8" true
