@@ -8,6 +8,7 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
+
 body {
     display: flex;
     align-items: center;
@@ -17,6 +18,7 @@ body {
     background: #666b6a;
     padding: 40px;
 }
+
 ::selection {
     background: #666b6a;
     color: #fff;
@@ -63,6 +65,7 @@ header nav a:hover {
     color: #52278a;
     font-family: "Fira Sans", sans-serif;
 }
+
 .accordion .accordion-text .title p {
     margin-bottom: 2em;
 }
@@ -71,40 +74,49 @@ header nav a:hover {
     margin-top: 25px;
     overflow-y: auto;
 }
+
 .redo-text::-webkit-scrollbar {
     display: none;
 }
+
 .accordion .accordion-text li {
     list-style: none;
     cursor: pointer;
 }
+
 .accordion-text li .question-arrow {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 .accordion-text li .question-arrow .question {
     font-size: 18px;
     font-weight: 500;
     color: #595959;
     transition: all 0.3s ease;
 }
+
 .accordion-text li .question-arrow .arrow {
     font-size: 20px;
     color: #595959;
     transition: all 0.3s ease;
 }
+
 .accordion-text li.showAnswer .question-arrow .arrow {
     transform: rotate(-180deg);
 }
+
 .accordion-text li:hover .question-arrow .question,
 .accordion-text li:hover .question-arrow .arrow {
     color: #3700eb;
 }
+
 .accordion-text li.showAnswer .question-arrow .question,
 .accordion-text li.showAnswer .question-arrow .arrow {
     color: #cdc2ec;
 }
+
 .accordion-text li .line {
     display: block;
     height: 2px;
@@ -112,6 +124,7 @@ header nav a:hover {
     margin: 10px 0;
     background: rgba(0, 0, 0, 0.1);
 }
+
 .accordion-text li p {
     width: 92%;
     font-size: 15px;
@@ -119,42 +132,46 @@ header nav a:hover {
     color: #595959;
     display: none;
 }
+
 .accordion-text li.showAnswer p {
     display: block;
     margin-left: 1.5em;
 }
+
 .accordion-text li.showAnswer .prompt {
     font-size: 18px;
     margin: 1em;
     font-weight: bold;
 }
+
 .accordion-text li.showAnswer .answer {
     letter-spacing: 0.03em;
-    margin: 1em 0em 0em 1em;
+    margin-top: 1em;
+    margin-right: 1em;
 }
 
 /* TYPOGRAPHY */
-.accordion p 
 
 /* MEDIA QUERIES - ACCORDION */
 @media (max-width: 994px) {
     body {
         padding: 40px 20px;
     }
+
     .accordion {
         max-width: 100%;
-        padding: 45px 60px 45px 60px;
+        padding: 45px 60px;
     }
+}
 
 @media (max-width: 820px) {
-
     .accordion .accordion-text {
         width: 100%;
         margin-top: 30px;
     }
 }
-@media (max-width: 538px) {
 
+@media (max-width: 538px) {
     .accordion {
         padding: 25px;
     }
