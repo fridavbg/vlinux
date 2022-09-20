@@ -66,11 +66,8 @@ function version {
 # Message to display for version.
 #
 function save {
-    local txt=(
-        "$SCRIPT version $VERSION"
-    )
 
-    printf "%s\\n" "${txt[@]}"
+    printf "Data saved to client/saved.data"
 }
 
 #
