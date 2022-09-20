@@ -74,35 +74,45 @@ function save {
 }
 
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function for calling route /all
 #
 function app-all {
-    echo "All itemss"
+
+    echo
+    curl http://localhost:1337/all
+
 }
 
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function for calling route /names
 #
 function app-names {
-    echo "All item names"
+    echo
+    curl http://localhost:1337/names
 }
 
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function for calling route /color/:color
 #
 function app-color {
-    echo "Specific item color"
+    if [ -z "$1" ]; then
+        echo "No color was given"
+        exit 1
+    fi
+
+    echo
+    curl http://localhost:1337/color/$1
 }
 
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function for test all routes
 #
 function app-test {
-    echo "Test url"
+    if [ "$1" != 'color' ]; then
+        curl http://localhost:1337/$1 -Is | head -n1 | cut -d" " -f3
+    else
+        curl http://localhost:1337/$1/$2 -Is | head -n1 | cut -d" " -f3
+    fi
 }
 
 #
@@ -128,10 +138,11 @@ while (($#)); do
 
     all | \
         names | \
-        calendar)
+        color | \
+        test)
         command=$1
         shift
-        app-"$command" "$*"
+        app-"$command" "$@"
         exit 0
         ;;
 
