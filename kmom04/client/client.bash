@@ -98,7 +98,7 @@ function app-color {
     fi
 
     echo
-    curl http://localhost:1337/color/$1
+    curl http://localhost:1337/color/"$1"
 }
 
 #
@@ -106,9 +106,9 @@ function app-color {
 #
 function app-test {
     if [ "$1" != 'color' ]; then
-        curl http://localhost:1337/$1 -Is | head -n1 | cut -d" " -f3
+        curl http://localhost:1337/"$1" -Is | head -n1 | cut -d" " -f3
     else
-        curl http://localhost:1337/$1/$2 -Is | head -n1 | cut -d" " -f3
+        curl http://localhost:1337/"$1"/"$2" -Is | head -n1 | cut -d" " -f3
     fi
 }
 
