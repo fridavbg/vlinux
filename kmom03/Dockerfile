@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-RUN apt update && apt install -y apache2 w3m
+RUN apt update && apt install -y apache2 w3m tree
 
 COPY vhosts/mysite.vlinux.se.conf /etc/apache2/sites-available/mysite.vlinux.se.conf
 
