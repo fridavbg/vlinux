@@ -31,6 +31,7 @@ function usage {
         "Options:"
         "  --help, -h     Print help."
         "  --version, -h  Print version."
+        "  --save. -s     Save data in saved.data"
     )
 
     printf "%s\\n" "${txt[@]}"
@@ -60,14 +61,6 @@ function version {
     )
 
     printf "%s\\n" "${txt[@]}"
-}
-
-#
-# Message to display for version.
-#
-function save {
-
-    printf "Data saved to client/saved.data"
 }
 
 #
@@ -105,10 +98,17 @@ function app-color {
 # Function for test all routes
 #
 function app-test {
-    if [ "$1" != 'color' ]; then
+    if [ "$1" == 'all' ] || [ "$1" == 'names' ]; then
+        echo "Testing: " http://localhost:1337/"$1"
         curl http://localhost:1337/"$1" -Is | head -n1 | cut -d" " -f3
-    else
+    elif [ "$1" == 'color' ] && [ "$2" != '' ]; then
+        echo "Testing: " http://localhost:1337/"$1"/"$2"
         curl http://localhost:1337/"$1"/"$2" -Is | head -n1 | cut -d" " -f3
+    elif [ "$1" == 'color' ] && [ "$2" == '' ]; then
+        echo "Did you forget to add a color?"
+    else
+        echo "Testing: " http://"$1"
+        curl http://"$1" -Is | head -n1 | cut -d" " -f3
     fi
 }
 
@@ -129,8 +129,20 @@ while (($#)); do
         ;;
 
     --save | -s)
-        save
-        exit 0
+        if [ "$2" == 'all' ] || [ "$2" == 'names' ]; then
+            curl -o saved.data http://localhost:1337/"$2"
+            shift
+        elif [ "$2" == 'color' ] && [ "$3" != '' ]; then
+            curl -o saved.data http://localhost:1337/"$2"/"$3"
+            shift
+        elif [ "$2" == 'test' ] && [ "$3" != '' ]; then
+            curl -o saved.data http://localhost:1337/"$2"/"$3" -Is | head -n1 | cut -d" " -f3
+            shift
+        else
+            echo "Did you forget a color or url?"
+            usage
+            exit 0
+        fi
         ;;
 
     all | \
