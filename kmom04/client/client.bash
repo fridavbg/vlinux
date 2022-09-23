@@ -11,12 +11,14 @@
 #
 # Check if DBWEBB_PORT is assigned
 #
-if [[ $DBWEBB_PORT ]]
-    then
-        PORT=$DBWEBB_PORT
-    else
-        PORT=1337
+if [[ -n "$DBWEBB_PORT" ]]; then
+    PORT=$DBWEBB_PORT
+else
+    PORT=8080
 fi
+
+# Base url with port
+BASE_URL="http://localhost:${PORT}"
 
 # Name of the script
 SCRIPT=$(basename "$0")
@@ -80,14 +82,14 @@ function version {
 # Function for calling route /all
 #
 function app-all {
-    url="http://localhost:1337/all"
+
+    url="$BASE_URL/all"
     if $SAVE; then
-        curl -o saved.data "$url"
+        curl -o saved.data -s "$url"
+        echo ""
         echo "Data was saved."
-    else
-        echo "Nothing was saved."
+        echo ""
     fi
-    echo
     curl "$url"
 }
 
@@ -95,13 +97,13 @@ function app-all {
 # Function for calling route /names
 #
 function app-names {
-    url="http://localhost:1337/names"
+    url="$BASE_URL/names"
 
     if $SAVE; then
-        curl -o saved.data "$url"
+        curl -o saved.data -s "$url"
+        echo ""
         echo "Data was saved."
-    else
-        echo "Nothing was saved."
+        echo ""
     fi
 
     echo
@@ -117,13 +119,11 @@ function app-color {
         exit 1
     fi
 
-    url="http://localhost:1337/color/"$1""
+    url="$BASE_URL/color/"$1""
 
     if $SAVE; then
-        curl -o saved.data "$url"
+        curl -o saved.data -s "$url"
         echo "Data was saved."
-    else
-        echo "Nothing was saved."
     fi
 
     echo
@@ -138,14 +138,12 @@ function app-test {
     if [[ -n $1 ]]; then
         url=$1
     else
-        url="http://localhost:1337"
+        url="$BASE_URL"
     fi
 
     if $SAVE; then
         curl -o saved.data "$url" -Is
         echo "Data was saved."
-    else
-        echo "Nothing was saved."
     fi
 
     if

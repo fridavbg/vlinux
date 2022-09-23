@@ -1,11 +1,1 @@
-HTTP/1.1 301 Moved Permanently
-Location: http://www.google.com/
-Content-Type: text/html; charset=UTF-8
-Date: Fri, 23 Sep 2022 13:01:44 GMT
-Expires: Sun, 23 Oct 2022 13:01:44 GMT
-Cache-Control: public, max-age=2592000
-Server: gws
-Content-Length: 219
-X-XSS-Protection: 0
-X-Frame-Options: SAMEORIGIN
-
+[{"id":3,"name":"Habanero","type":"Chili","color":["Red","Yellow","White","Orange"],"species":"Capsicum Chinense","origin":"The Amazon","scoville":"900.000-1.000.000"}]

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const port = 1337;
+
+const port = process.env.DBWEBB_PORT || 1337;
 
 app.get("/", (req, res) => res.send("Hello from inside Docker!"));
 
