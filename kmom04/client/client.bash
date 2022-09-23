@@ -119,7 +119,7 @@ function app-color {
         exit 1
     fi
 
-    url="$BASE_URL/color/"$1""
+    url="$BASE_URL/color/$1"
 
     if $SAVE; then
         curl -o saved.data -s "$url"
