@@ -14,6 +14,9 @@ SCRIPT=$(basename "$0")
 # Current version
 VERSION="1.0.0"
 
+# SAVE flag
+SAVE=false
+
 #
 # Message to display for usage and help.
 #
@@ -67,18 +70,32 @@ function version {
 # Function for calling route /all
 #
 function app-all {
-
+    url="http://localhost:1337/all"
+    if $SAVE; then
+        curl -o saved.data "$url"
+        echo "Data was saved."
+    else
+        echo "Nothing was saved."
+    fi
     echo
-    curl http://localhost:1337/all
-
+    curl "$url"
 }
 
 #
 # Function for calling route /names
 #
 function app-names {
+    url="http://localhost:1337/names"
+
+    if $SAVE; then
+        curl -o saved.data "$url"
+        echo "Data was saved."
+    else
+        echo "Nothing was saved."
+    fi
+
     echo
-    curl http://localhost:1337/names
+    curl "$url"
 }
 
 #
@@ -90,25 +107,43 @@ function app-color {
         exit 1
     fi
 
+    url="http://localhost:1337/color/"$1""
+
+    if $SAVE; then
+        curl -o saved.data "$url"
+        echo "Data was saved."
+    else
+        echo "Nothing was saved."
+    fi
+
     echo
-    curl http://localhost:1337/color/"$1"
+    curl "$url"
 }
 
 #
 # Function for test all routes
 #
 function app-test {
-    if [ "$1" == 'all' ] || [ "$1" == 'names' ]; then
-        echo "Testing: " http://localhost:1337/"$1"
-        curl http://localhost:1337/"$1" -Is | head -n1 | cut -d" " -f3
-    elif [ "$1" == 'color' ] && [ "$2" != '' ]; then
-        echo "Testing: " http://localhost:1337/"$1"/"$2"
-        curl http://localhost:1337/"$1"/"$2" -Is | head -n1 | cut -d" " -f3
-    elif [ "$1" == 'color' ] && [ "$2" == '' ]; then
-        echo "Did you forget to add a color?"
+
+    if [[ -n $1 ]]; then
+        url=$1
     else
-        echo "Testing: " http://"$1"
-        curl http://"$1" -Is | head -n1 | cut -d" " -f3
+        url="http://localhost:1337"
+    fi
+
+    if $SAVE; then
+        curl -o saved.data "$url" -Is
+        echo "Data was saved."
+    else
+        echo "Nothing was saved."
+    fi
+
+    if
+        curl --output /dev/null --silent --head --fail "$url"
+    then
+        echo "$url is OK"
+    else
+        echo "$url is not OK"
     fi
 }
 
@@ -129,20 +164,8 @@ while (($#)); do
         ;;
 
     --save | -s)
-        if [ "$2" == 'all' ] || [ "$2" == 'names' ]; then
-            curl -o saved.data http://localhost:1337/"$2"
-            shift
-        elif [ "$2" == 'color' ] && [ "$3" != '' ]; then
-            curl -o saved.data http://localhost:1337/"$2"/"$3"
-            shift
-        elif [ "$2" == 'test' ] && [ "$3" != '' ]; then
-            curl -o saved.data http://localhost:1337/"$2"/"$3" -Is | head -n1 | cut -d" " -f3
-            shift
-        else
-            echo "Did you forget a color or url?"
-            usage
-            exit 0
-        fi
+        SAVE=true
+        shift
         ;;
 
     all | \
