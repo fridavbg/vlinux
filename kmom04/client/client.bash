@@ -8,6 +8,16 @@
 #  1 on failure
 #
 
+#
+# Check if DBWEBB_PORT is assigned
+#
+if [[ $DBWEBB_PORT ]]
+    then
+        PORT=$DBWEBB_PORT
+    else
+        PORT=1337
+fi
+
 # Name of the script
 SCRIPT=$(basename "$0")
 
