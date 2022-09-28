@@ -56,7 +56,7 @@ echo "${PROMPT}Ready to begin."
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER=$(sed -n '/192\.168\.0\.1/p' < numbers.txt)
+ANSWER=$(sed -n '/192\.168\.0\.1/p' <numbers.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.1" false
@@ -82,7 +82,7 @@ assertEqual "1.1" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER=$(sed -n '/The/p' < quotes.txt)
+ANSWER=$(sed -n '/The/p' <quotes.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.2" false
@@ -109,7 +109,7 @@ assertEqual "1.2" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER=$(sed -n -E '/\s[a-z]{2} a/p' < quotes.txt)
+ANSWER=$(sed -n -E '/\s[a-z]{2} a/p' <quotes.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.3" false
@@ -135,7 +135,7 @@ assertEqual "1.3" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER=$(sed -n '/e.$/p' quotes.txt)
+ANSWER=$(sed -n -E '/\s[a-zAZ]*e[a-zAZ]*.?$/p' quotes.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.4" false
@@ -165,7 +165,7 @@ assertEqual "1.4" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -nr '/([A-Za-z0-9_" "]{0,})(\@{1})([A-Za-z0-9_]{0,})(\.{1})([A-Za-z]{2,3})/p' emails.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.5" false
@@ -189,7 +189,7 @@ assertEqual "1.5" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -E 's/Thor/MightyThor/g' substitution.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.1" false
@@ -205,7 +205,7 @@ assertEqual "2.1" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -E 's/home/Asgaard/g' substitution.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.2" false
@@ -221,7 +221,7 @@ assertEqual "2.2" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -E 's/(\/)home(.*)Thor(.*)/\1Asgaard\2MightyThor\3/g' < substitution.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.3" false
@@ -239,7 +239,7 @@ assertEqual "2.3" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -E 's/\/home\/Thor\/Pictures\/Family\/$/&\n&Thor\/selfie.png/g' substitution.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.4" false
@@ -255,8 +255,7 @@ assertEqual "2.4" false
 #
 # Write your code below and put the answer into the variable ANSWER.
 #
-
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -E 's/.+\[([0-9]{2})\/([a-zA-Z]{3})\/([0-9]{4}).+/\3-\2-\1/g' < access-medium.log)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.5" false
