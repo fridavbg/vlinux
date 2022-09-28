@@ -56,9 +56,7 @@ echo "${PROMPT}Ready to begin."
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-FILE="numbers.txt"
-
-ANSWER=$(sed -n '/192.168.0.1/p' < $FILE)
+ANSWER=$(sed -n '/192\.168\.0\.1/p' < numbers.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.1" false
@@ -84,7 +82,7 @@ assertEqual "1.1" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -n '/The/p' < quotes.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.2" false
@@ -111,7 +109,7 @@ assertEqual "1.2" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -n -E '/\s[a-z]{2} a/p' < quotes.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.3" false
@@ -137,7 +135,7 @@ assertEqual "1.3" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER="Replace this text with the variable holding the answer."
+ANSWER=$(sed -n '/e.$/p' quotes.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "1.4" false
