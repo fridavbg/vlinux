@@ -14,20 +14,11 @@
 if [[ -n "$DBWEBB_PORT" ]]; then
     PORT=$DBWEBB_PORT
 else
-    PORT=8080
+    PORT=1337
 fi
 
 # Base url with port
 BASE_URL="http://localhost:${PORT}"
-
-# Name of the script
-SCRIPT=$(basename "$0")
-
-# Current version
-VERSION="1.0.0"
-
-# SAVE flag
-SAVE=false
 
 #
 # Message to display for usage and help.
@@ -52,8 +43,6 @@ function usage {
         ""
         "Options:"
         "  --help, -h     Print help."
-        "  --version, -h  Print version."
-        "  --save. -s     Save data in saved.data"
     )
 
     printf "%s\\n" "${txt[@]}"
@@ -89,21 +78,38 @@ function version {
 # Function to initialize game
 #
 function app-init {
-
-    echo "Initiera ett spel och spara ned spelets id i en fil."
+    #SAVE ID
+    url="$BASE_URL?type=csv"
+    curl -o game.csv -s "$url"
+    while IFS="," read -r text gameid; do
+        echo ""
+        echo "Text: $text"
+        echo "GameId: $gameid"
+        echo ""
+    done < <(tail -n +2 game.csv)
 }
 
 #
 # Function to display available maps
 #
 function app-maps {
-    echo "Visa vilka kartor som finns att välja bland."
+    local id="local"
+    url="$BASE_URL/map"
+    maps=$(curl $url -s)
+    echo ""
+    echo "$maps"
+    echo ""
 }
 
 #
 # Function to display map by number
 #
 function app-select {
+    # curl localhost:1337/69802/map/small-maze.json
+    url="$BASE_URL/$gameid/map/$1"
+    echo
+    curl "$url"
+    echo "$id"
     echo "Välj en viss karta via siffra."
 }
 
@@ -139,16 +145,6 @@ while (($#)); do
     --help | -h)
         usage
         exit 0
-        ;;
-
-    --version | -v)
-        version
-        exit 0
-        ;;
-
-    --save | -s)
-        SAVE=true
-        shift
         ;;
 
     all | \
