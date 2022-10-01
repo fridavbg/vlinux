@@ -20,7 +20,7 @@ fi
 # Base url with port
 BASE_URL="http://localhost:${PORT}"
 
-#CSV conversion
+# CSV conversion
 CSV="?type=csv"
 
 #
@@ -79,8 +79,10 @@ function version {
 
 #
 # Function to initialize game
+# curl localhost:1337/
 #
 function app-init {
+    find . -type f -name \*.csv -exec rm -rf {} \;
     #SAVE ID
     url="$BASE_URL$CSV"
     curl -o game.csv -s "$url"
@@ -92,11 +94,9 @@ function app-init {
     done < <(tail -n +2 game.csv)
 }
 
-#Game Id
-ID=$(sed -n '2 p' game.csv | cut -d "," -f 2)
-
 #
 # Function to display available maps
+# curl localhost:1337/map
 #
 function app-maps {
 
@@ -104,9 +104,9 @@ function app-maps {
     curl -o maps.csv -s "$url"
     echo ""
     echo "Use mazerunner select # cmd to choose map"
-    while IFS="," read -r big_maze small_maze; do
+    while IFS="," read -r maze_of_doom small_maze; do
         echo ""
-        echo "1: $big_maze"
+        echo "1: $maze_of_doom"
         echo "2: $small_maze"
         echo ""
     done < <(tail -n +2 maps.csv)
@@ -114,58 +114,130 @@ function app-maps {
 
 #
 # Function to select map by number
+# curl localhost:1337/:gameid/map/small-maze
 #
 function app-select {
-    url="$BASE_URL/$ID/map"
+    GAMEID=$(sed -n '2 p' game.csv | cut -d "," -f 2)
+    url="$BASE_URL/$GAMEID/map"
 
     if [ -z "$1" ]; then
         echo "No number was given"
         exit 1
     fi
 
-    if [ "$1" == 1 ]; then
-        echo ""
-        echo $(curl "$url/small-maze$CSV" -s | head -n 2 | tail -1)
-        echo "Small maze"
-        echo ""
-    elif [ "$1" == 2 ]; then
-        echo ""
-        curl "$url/maze-of-doom$CSV" -s | head -n 2 | tail -1
-        echo "Maze of Doom"
-        echo ""
-    else
-        echo ""
-        echo "No map with that number"
-        echo ""
-    fi
+    while IFS="," read -r maze_of_doom small_maze; do
+        if [ "$1" = 1 ]; then
+            echo ""
+            curl "$url/$maze_of_doom"
+            echo ""
+            echo "You entered the $maze_of_doom"
+            echo ""
+        elif [ "$1" == 2 ]; then
+            echo ""
+            curl "$url/$small_maze"
+            echo ""
+            echo "You entered the $small_maze"
+            echo ""
+        else
+            echo ""
+            echo "There is no map with that number"
+            echo ""
+        fi
+    done < <(tail -n +2 maps.csv)
 }
 
 #
 # Function to enter first room
+# curl localhost:1337/:gameid/maze
 #
 function app-enter {
-    url="$BASE_URL/$ID/maze"
+    GAMEID=$(sed -n '2 p' game.csv | cut -d "," -f 2)
+    url="$BASE_URL/$GAMEID/maze$CSV"
 
-    echo
-    curl "$url"
+    curl -o room.csv -s "$url"
+    curl -o currentRoom.csv -s "$url"
+
+    while IFS="," read -r roomid description west east south north; do
+        echo ""
+        echo "You have entered room: $roomid"
+        echo "Room description: $description"
+        echo "You can go west $west time(s)"
+        echo "You can go east $east time(s)"
+        echo "You can go south $south time(s)"
+        echo "You can go north $north time(s)"
+        echo ""
+    done < <(tail -n +2 room.csv)
 }
+
+#ROOMID - inital value
+# ROOMID=$(sed -n '2 p' room.csv | cut -d "," -f 1)
 
 #
 # Function to display room info.
+# curl localhost:1337/:gameid/maze
 #
 function app-info {
-    url="$BASE_URL/$ID/maze"
-
-    echo
-    curl "$url"
+    GAMEID=$(sed -n '2 p' game.csv | cut -d "," -f 2)
+    url="$BASE_URL/$GAMEID/maze/$ROOMID$CSV"
+    curl -o currentRoom.csv "$url" -s
+    while IFS="," read -r roomid description west east south north; do
+        echo ""
+        echo "RoomID: $roomid"
+        echo "Description: $description"
+        echo "Options to the west: $west"
+        echo "Options to the east: $east"
+        echo "Options to the south: $south"
+        echo "Options to the north: $north"
+        echo ""
+    done < <(tail -n +2 currentRoom.csv)
 }
 
 #
 # Function to move to a new room
 # If directions exists
+# curl localhost:1337/:gameid/maze/:direction
 #
 function app-go {
-    echo "Gå till ett nytt rum, om riktningen stödjs."
+    GAMEID=$(sed -n '2 p' game.csv | cut -d "," -f 2)
+    ROOMID=$(sed -n '2 p' currentRoom.csv | cut -d "," -f 1)
+    url="$BASE_URL/$GAMEID/maze/$ROOMID/$1$CSV"
+
+    if [ -z "$1" ]; then
+        echo "No direction was given"
+        exit 1
+    elif [ "$1" == 'west' ] ||
+        [ "$1" == 'east' ] ||
+        [ "$1" == 'south' ] ||
+        [ "$1" == 'north' ]; then
+        curl -o currentRoom.csv -s "$url"
+    else
+        echo "Direction not allowed"
+    fi
+
+    while IFS="," read -r roomid description west east south north text; do
+        if [ "$description" == 'You found the exit' ]; then
+            echo ""
+            echo "$description"
+            echo ""
+            find . -type f -name \*.csv -exec rm -rf {} \;
+            exit 1
+        else
+            echo ""
+            echo "You have entered room: $roomid"
+            echo "Room description: $description"
+            echo ""
+            echo "You can go west $west time(s)"
+            echo ""
+            echo "You can go east $east time(s)"
+            echo ""
+            echo "You can go south $south time(s)"
+            echo ""
+            echo "You can go north $north time(s)"
+            echo ""
+
+        fi
+    done < <(tail -n +2 currentRoom.csv)
+
 }
 
 #
