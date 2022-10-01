@@ -20,6 +20,9 @@ fi
 # Base url with port
 BASE_URL="http://localhost:${PORT}"
 
+#CSV conversion
+CSV="?type=csv"
+
 #
 # Message to display for usage and help.
 #
@@ -79,53 +82,82 @@ function version {
 #
 function app-init {
     #SAVE ID
-    url="$BASE_URL?type=csv"
+    url="$BASE_URL$CSV"
     curl -o game.csv -s "$url"
     while IFS="," read -r text gameid; do
         echo ""
-        echo "Text: $text"
+        echo "$text"
         echo "GameId: $gameid"
         echo ""
     done < <(tail -n +2 game.csv)
 }
 
+#Game Id
+ID=$(sed -n '2 p' game.csv | cut -d "," -f 2)
+
 #
 # Function to display available maps
 #
 function app-maps {
-    local id="local"
-    url="$BASE_URL/map"
-    maps=$(curl $url -s)
+
+    url="$BASE_URL/map$CSV"
+    curl -o maps.csv -s "$url"
     echo ""
-    echo "$maps"
-    echo ""
+    echo "Use mazerunner select # cmd to choose map"
+    while IFS="," read -r big_maze small_maze; do
+        echo ""
+        echo "1: $big_maze"
+        echo "2: $small_maze"
+        echo ""
+    done < <(tail -n +2 maps.csv)
 }
 
 #
-# Function to display map by number
+# Function to select map by number
 #
 function app-select {
-    # curl localhost:1337/69802/map/small-maze.json
-    url="$BASE_URL/$gameid/map/$1"
-    echo
-    curl "$url"
-    echo "$id"
-    echo "Välj en viss karta via siffra."
+    url="$BASE_URL/$ID/map"
+
+    if [ -z "$1" ]; then
+        echo "No number was given"
+        exit 1
+    fi
+
+    if [ "$1" == 1 ]; then
+        echo ""
+        echo $(curl "$url/small-maze$CSV" -s | head -n 2 | tail -1)
+        echo "Small maze"
+        echo ""
+    elif [ "$1" == 2 ]; then
+        echo ""
+        curl "$url/maze-of-doom$CSV" -s | head -n 2 | tail -1
+        echo "Maze of Doom"
+        echo ""
+    else
+        echo ""
+        echo "No map with that number"
+        echo ""
+    fi
 }
 
 #
 # Function to enter first room
 #
 function app-enter {
-    echo "Gå in i första rummet."
+    url="$BASE_URL/$ID/maze"
 
+    echo
+    curl "$url"
 }
 
 #
 # Function to display room info.
 #
 function app-info {
-    echo "Visa information om rummet."
+    url="$BASE_URL/$ID/maze"
+
+    echo
+    curl "$url"
 }
 
 #
