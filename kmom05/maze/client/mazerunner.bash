@@ -82,8 +82,8 @@ function version {
 # curl localhost:1337/
 #
 function app-init {
+    # Remove csv files
     find . -type f -name \*.csv -exec rm -rf {} \;
-    #SAVE ID
     url="$BASE_URL$CSV"
     curl -o game.csv -s "$url"
     while IFS="," read -r text gameid; do
@@ -217,8 +217,10 @@ function app-go {
     while IFS="," read -r roomid description west east south north text; do
         if [ "$description" == 'You found the exit' ]; then
             echo ""
+            echo "Congratulations!!"
             echo "$description"
             echo ""
+            # Remove all *.csv
             find . -type f -name \*.csv -exec rm -rf {} \;
             exit 1
         else

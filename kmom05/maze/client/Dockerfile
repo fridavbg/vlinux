@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 
 RUN apt update && apt install -y curl
 
-WORKDIR maze
+WORKDIR /maze
 
-COPY mazerunner.bash ./
+COPY mazerunner.bash ./client/
 
-ENTRYPOINT [ "/bin/bash","-c", "./mazerunner.bash" ]
+RUN chmod +x ./client/*.bash
