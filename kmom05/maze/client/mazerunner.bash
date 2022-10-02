@@ -14,7 +14,7 @@
 if [[ -n "$DBWEBB_PORT" ]]; then
     PORT=$DBWEBB_PORT
 else
-    PORT=1337
+    PORT=8080
 fi
 
 # Base url with port
@@ -82,10 +82,11 @@ function version {
 # curl localhost:1337/
 #
 function app-init {
-    # Remove csv files
-    find . -type f -name \*.csv -exec rm -rf {} \;
+    
     url="$BASE_URL$CSV"
-    curl -o game.csv -s "$url"
+
+    curl -o game.csv "$url" -s
+    
     while IFS="," read -r text gameid; do
         echo ""
         echo "$text"
@@ -101,9 +102,12 @@ function app-init {
 function app-maps {
 
     url="$BASE_URL/map$CSV"
+    
     curl -o maps.csv -s "$url"
+
     echo ""
     echo "Use mazerunner select # cmd to choose map"
+
     while IFS="," read -r maze_of_doom small_maze; do
         echo ""
         echo "1: $maze_of_doom"
@@ -219,9 +223,10 @@ function app-go {
             echo ""
             echo "Congratulations!!"
             echo "$description"
-            echo ""
-            # Remove all *.csv
-            find . -type f -name \*.csv -exec rm -rf {} \;
+            echo '' > game.csv 1> /dev/null
+            echo '' > maps.csv 1> /dev/null
+            echo '' > room.csv 1> /dev/null
+            echo '' > currentRoom.csv 1> /dev/null
             exit 1
         else
             echo ""
