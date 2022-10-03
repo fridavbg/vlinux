@@ -330,8 +330,70 @@
                             <span class="question">kmom05</span>
                             <i class="bx bxs-chevron-down arrow"></i>
                         </div>
-                        <p class="prompt">PROMPT</p>
-                        <p>Answer</p>
+                        <!-- <p class="prompt">Hur kändes det att skriva ett litet större bash-skript? Var det något som var mer eller mindre utmanande och tidskrävande?</p> -->
+                        <p class="answer">
+                            Att skriva ett större bash.script var kul, men
+                            tidskrävande. Mest utmanade för mig var att jobba
+                            med variabler. Det tog en del utav min tankekraft
+                            att få rumsid:na att uppdatera sig, speciellt om
+                            spelaren gick åt samma riktning två gånger. Men till
+                            slut så fick jag det att fungera genom att inte
+                            använda ett globalt id, och bara uppdatera i
+                            funktionerna efter spelaren tar ett steg.
+                        </p>
+                        <!-- <p class="prompt">
+                            Kikade du på källkoden till maze-servern? Har du
+                            några reflektioner kring den?
+                        </p> -->
+                        <p class="answer">
+                            Källkoden för mazerunner tittade jag litegrann på i
+                            början, men mest för att få grep på hur APIt
+                            fungerade. Koden kändes lite bekant nu efter jobbat
+                            en del med JavaScript, och kändes skönt att jag
+                            kunde följa den utan några större problem. Men efter
+                            det så valde jag att bara använda mig utav
+                            dokumentationen, medans jag byggde mina script.
+                        </p>
+                        <!-- <p class="prompt">
+                            Gjorde du nåt speciellt i din mazerunner som du vill
+                            lyfta fram?
+                        </p> -->
+                        <p class="answer">
+                            I min mazerunner så valde jag att spara all
+                            nödvändig information i csv filer. Sedan med hjälp
+                            utav IFS och while loppar så visas informationen
+                            till spelaren. Viktigaste csv flen är
+                            currentRoom.csv som uppdateras efter varje steg som
+                            spelaren tar. Nått som jag la till extra var att när
+                            spelaren går ur labyrinten, så resnas alla csv
+                            filer, så att spelet kan startas om utan gammal
+                            information ifrån tidigare rond.
+                        </p>
+                        <!-- <p class="prompt">
+                            Vad tycker du om regex så här långt?
+                        </p> -->
+                        <p class="answer">
+                            När det kommer til regex så tycker jag det är enkelt
+                            när man skall endast hitta en sak. Men när man skall
+                            skapa ett större mönster, och kombinera flertal
+                            tecken, så kan det bli svårt att läsa och förstå vad
+                            som gör vad. Det känns som nått man får öva på en
+                            hel del för att bli bekväm i. Men förstår att det är
+                            väldigt användbart speciellt som ett sökverktyg.
+                        </p>
+                        <!-- <p class="prompt">
+                            Känner du att du är med på grunderna i verktyget
+                            sed?
+                        </p> -->
+                        <p class="answer">
+                            Känner mig fortfarande inte riktigt bekväm med
+                            grunderna i sed. Jag tycker fortfarande att det är
+                            väldigt svårt, och kombinerat med regex väldigt
+                            tidskrävande. Behöver en hel del tid för att kunna
+                            få ihop det, och få alla tecken rätt. Men precis som
+                            med regex så känns det som man måste öva ett tag
+                            tills man blir bekväm.
+                        </p>
                         <span class="line"></span>
                     </li>
                     <!-- Kmom06 -->
