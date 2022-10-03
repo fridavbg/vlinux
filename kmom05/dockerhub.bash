@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # DOCKER CLEAN
+docker network disconnect dbwebb mazeserver
 docker network rm dbwebb
 docker stop mazeclient
 docker stop mazeserver

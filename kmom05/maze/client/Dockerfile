@@ -7,4 +7,3 @@ WORKDIR /maze/client/
 COPY mazerunner.bash ./
 
 RUN chmod +x ./*.bash
-

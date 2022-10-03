@@ -14,11 +14,11 @@
 if [[ -n "$DBWEBB_PORT" ]]; then
     PORT=$DBWEBB_PORT
 else
-    PORT=8080
+    PORT=1337
 fi
 
 # Base url with port
-BASE_URL="http://localhost:${PORT}"
+BASE_URL="http://mazeserver:${PORT}"
 
 # CSV conversion
 CSV="?type=csv"
@@ -82,11 +82,11 @@ function version {
 # curl localhost:1337/
 #
 function app-init {
-    
+
     url="$BASE_URL$CSV"
 
     curl -o game.csv "$url" -s
-    
+
     while IFS="," read -r text gameid; do
         echo ""
         echo "$text"
@@ -102,7 +102,7 @@ function app-init {
 function app-maps {
 
     url="$BASE_URL/map$CSV"
-    
+
     curl -o maps.csv -s "$url"
 
     echo ""
@@ -159,7 +159,6 @@ function app-enter {
     url="$BASE_URL/$GAMEID/maze$CSV"
 
     curl -o room.csv -s "$url"
-    curl -o currentRoom.csv -s "$url"
 
     while IFS="," read -r roomid description west east south north; do
         echo ""
@@ -182,8 +181,10 @@ function app-enter {
 #
 function app-info {
     GAMEID=$(sed -n '2 p' game.csv | cut -d "," -f 2)
+    ROOMID=$(sed -n '2 p' currentRoom.csv | cut -d "," -f 1)
     url="$BASE_URL/$GAMEID/maze/$ROOMID$CSV"
     curl -o currentRoom.csv "$url" -s
+
     while IFS="," read -r roomid description west east south north; do
         echo ""
         echo "RoomID: $roomid"
@@ -223,10 +224,10 @@ function app-go {
             echo ""
             echo "Congratulations!!"
             echo "$description"
-            echo '' > game.csv 1> /dev/null
-            echo '' > maps.csv 1> /dev/null
-            echo '' > room.csv 1> /dev/null
-            echo '' > currentRoom.csv 1> /dev/null
+            echo '' >game.csv 1>/dev/null
+            echo '' >maps.csv 1>/dev/null
+            echo '' >room.csv 1>/dev/null
+            echo '' >currentRoom.csv 1>/dev/null
             exit 1
         else
             echo ""
