@@ -239,7 +239,7 @@ assertEqual "2.3" false
 # Write your code below and put the answer into the variable ANSWER.
 #
 
-ANSWER=$(sed -E 's/\/home\/Thor\/Pictures\/Family\/$/&\n&Thor\/selfie.png/g' substitution.txt)
+ANSWER=$(sed 's/\/home\/Thor\/Pictures\/Family\/$/&\n&Thor\/selfie.png/g' substitution.txt)
 
 # I will now test your answer - change false to true to get a hint.
 assertEqual "2.4" false
@@ -255,6 +255,7 @@ assertEqual "2.4" false
 #
 # Write your code below and put the answer into the variable ANSWER.
 #
+
 ANSWER=$(sed -E 's/.+\[([0-9]{2})\/([a-zA-Z]{3})\/([0-9]{4}).+/\3-\2-\1/g' < access-medium.log)
 
 # I will now test your answer - change false to true to get a hint.
