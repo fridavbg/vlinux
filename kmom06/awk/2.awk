@@ -1,3 +1,5 @@
+#!/usr/bin/env awk
+
 BEGIN {
     FS=","
     OFS="\t"
