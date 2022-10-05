@@ -9,7 +9,6 @@ BEGIN {
     "Telefon",
     "Mail")
     print "\n"
-
 }
 
 NR==1 { next }
