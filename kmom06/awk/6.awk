@@ -4,18 +4,15 @@ BEGIN {
     FS=","
     OFS="\t"
     print "\n"
-    printf("%-15s\t%-15s\t%-30s\t%-15s\t%-15s\t%-15s\n","Förnamn",
+    printf("%-15s\t%-15s\t%20s\n","Förnamn",
     "Efternamn",
-    "Stad",
-    "Född",
-    "Telefon",
-    "Mail")
+    "Stad")
     print "--------------------------------------------"
 }
 
 { 
 if(NR > 1 && $3  ~ /stad/ && $4 ~ /(-01-)|(-10-)/)
-    printf( "%-15s\t%-15s\t%-30s\t%-15s\t%-15s\t%-15s\n", $1,$2,$3,$4,$5,$6)
+    printf( "%-15s\t%-15s\t%20s\n", $1,$2,$3)
 }
 
 END {

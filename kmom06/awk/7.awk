@@ -1,30 +1,24 @@
 #!/usr/bin/env awk
 
-function getYear(year) {
-    arr["year"] = year
-    split(year, date, "-");
-    return date[1]
-}
-
-
-
 BEGIN {
     FS=","
     OFS="\t"
-    print "\n"
-    printf("%-15s%-15s\n",
+    printf"%s\t%s\n%s\n",
     "Årtal",
-    "Antal")
-    print "--------------------------------------------"
+    "Antal", 
+    "-------------"
 }
 
-NR==1 { next }
 { 
-    year = int($4)
-    years = getYear($4)
-    printf("%-15s%-15s\n", years, antal)
+    if (NR > 1)
+    {
+        split($4, items, "-");
+        data[items[1]]++
+    }
 }
 
 END {
-    print "\n---- Slut på utskrift ----\n"
+    for (item in data) {
+        printf "%s\t%s\n", item, data[item]
+    }
 }
