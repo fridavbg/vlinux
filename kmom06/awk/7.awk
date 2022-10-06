@@ -12,13 +12,13 @@ BEGIN {
 { 
     if (NR > 1)
     {
-        split($4, items, "-");
-        data[items[1]]++
+        split($4, years, "-");
+        data[years[1]]++
     }
 }
 
 END {
-    for (item in data) {
-        printf "%s\t%s\n", item, data[item]
+    for (year in data) {
+        printf "%s\t%s\n", year, data[year]
     }
 }
