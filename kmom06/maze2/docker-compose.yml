@@ -1,0 +1,20 @@
+version: "3"
+networks:
+    dbwebb:
+
+services:
+    server:
+        image: "fridavbg/vlinux-mazeserver:1.0"
+        container_name: mazeserver
+        ports:
+            - "1337:1337"
+        networks:
+            dbwebb:
+        restart: "always"
+    client:
+        image: "fridavbg/vlinux-mazeclient:1.0"
+        container_name: mazeclient
+        networks:
+            dbwebb:
+        links: 
+            - server:mazeserver
