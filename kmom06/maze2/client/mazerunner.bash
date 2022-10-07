@@ -159,6 +159,7 @@ function app-enter {
     url="$BASE_URL/$GAMEID/maze$CSV"
 
     curl -o room.csv -s "$url"
+    curl -o currentRoom.csv "$url" -s
 
     while IFS="," read -r roomid description west east south north; do
         echo ""
@@ -242,7 +243,6 @@ function app-go {
             echo ""
             echo "You can go north $north time(s)"
             echo ""
-
         fi
     done < <(tail -n +2 currentRoom.csv)
 
@@ -256,8 +256,14 @@ function app-loop {
     read -p "Which number do you choose: " number
     app-select $number
     app-enter
-    read -p "What direcction do you want to go: " direcction
-    app-go $direcction
+    while true; do
+        read -p "What direcction do you want to go: " direcction
+        if [direcction == "exit"]; then
+            exit 1
+        else
+            app-go $direcction
+        fi
+    done
 }
 
 #
