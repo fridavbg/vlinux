@@ -253,6 +253,11 @@ function app-loop {
     echo "--------"
     app-maps
     echo "--------"
+    read -p "Which number do you choose: " number
+    app-select $number
+    app-enter
+    read -p "What direcction do you want to go: " direcction
+    app-go $direcction
 }
 
 #
