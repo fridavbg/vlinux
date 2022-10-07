@@ -18,7 +18,7 @@ else
 fi
 
 # Base url with port
-BASE_URL="http://mazeserver:${PORT}"
+BASE_URL="http://localhost:${PORT}"
 
 # CSV conversion
 CSV="?type=csv"
@@ -254,24 +254,29 @@ function app-loop {
     app-maps
     echo "--------"
     while true; do
-        read -p "Which number do you choose: " number
+        read -r -p "Which number do you choose: " number
         if [[ $number == 1 ]] || [[ $number == 2 ]]; then
-            echo $number
-            app-select $number
+            app-select "$number"
             app-enter
-            read -p "What direcction do you want to go: " direcction
-            if [[ $direcction == "exit" ]]; then
-                app-exit
-            elif [[ $direcction == "south" ]] ||
-                [[ $direcction == "east" ]] ||
-                [[ $direcction == "west" ]] ||
-                [[ $direcction == "north" ]]; then
-                app-go $direcction
-            else
-                echo "Direction not allowed"
-            fi
+            while true; do
+                read -r -p "What direcction do you want to go: " direcction
+                if [[ $direcction == "exit" ]]; then
+                    app-exit
+                elif [[ $direcction == "south" ]] ||
+                    [[ $direcction == "east" ]] ||
+                    [[ $direcction == "west" ]] ||
+                    [[ $direcction == "north" ]]; then
+                    app-go "$direcction"
+                else
+                    echo ""
+                    echo "Direction not allowed"
+                    echo ""
+                fi
+            done
         else
+            echo ""
             echo "No map with that number"
+            echo ""
         fi
     done
 }
