@@ -4,7 +4,7 @@ networks:
 
 services:
     server:
-        image: "fridavbg/vlinux-mazeserver:1.0"
+        image: "fridavbg/vlinux-mazeserver:loop"
         container_name: mazeserver
         ports:
             - "1337:1337"
@@ -12,7 +12,7 @@ services:
             dbwebb:
         restart: "always"
     client:
-        image: "fridavbg/vlinux-mazeclient:1.0"
+        image: "fridavbg/vlinux-mazeclient:loop"
         container_name: mazeclient
         networks:
             dbwebb:
