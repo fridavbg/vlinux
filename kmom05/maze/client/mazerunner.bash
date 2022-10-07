@@ -159,6 +159,7 @@ function app-enter {
     url="$BASE_URL/$GAMEID/maze$CSV"
 
     curl -o room.csv -s "$url"
+    curl -o currentRoom.csv "$url" -s
 
     while IFS="," read -r roomid description west east south north; do
         echo ""
