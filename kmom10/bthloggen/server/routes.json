@@ -1,0 +1,18 @@
+[
+    {
+        "route": "/",
+        "displays": "List of all routes"
+    },
+    {
+        "route": "/data/",
+        "displays": "Shows all data from json.log"
+    },
+    {
+        "route": "/data?ip=<ip>",
+        "displays": "Rows that matches with given ip"
+    },
+    {
+        "route": "/data?url=<url>",
+        "displays": "Rows that matches with given url"
+    }
+]
