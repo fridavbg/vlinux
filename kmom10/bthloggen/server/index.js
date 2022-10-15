@@ -28,11 +28,4 @@ app.get("/data", (req, res) => {
     return res.json(jsonLog);
 });
 
-// app.get("/data/:ip", (req, res) => {
-//     let ip = req.params;
-//     const result = log.filter((item) => item.ip.includes(ip.ip));
-
-//     res.json(result);
-// });
-
 app.listen(port, () => console.log(`App listening on port ${port}!`));
