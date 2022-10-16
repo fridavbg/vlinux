@@ -8,6 +8,9 @@
 #  1 on failure
 #
 
+# Current version
+VERSION="1.0.0"
+
 #
 # Check if DBWEBB_PORT is assigned
 #
@@ -18,7 +21,7 @@ else
 fi
 
 # Base url with port
-BASE_URL="http://localhost:${PORT}"
+BASE_URL="http://bthloggen-server:${PORT}"
 
 #
 # Message to display for usage and help.
@@ -38,8 +41,8 @@ function usage {
         ""
         "Options:"
         "  --help, -h     Print help."
-        "-v, --version   Display the current version"
-        "-c, --count     Display the number of rows returned"
+        "  --version, -v   Display the current version"
+        "  --count, -c      Display the number of rows returned"
     )
 
     printf "%s\\n" "${txt[@]}"
@@ -56,6 +59,17 @@ function badUsage {
     )
 
     [[ -n $message ]] && printf "%s\\n" "$message"
+
+    printf "%s\\n" "${txt[@]}"
+}
+
+#
+# Message to display for version.
+#
+function version {
+    local txt=(
+        "$SCRIPT version $VERSION"
+    )
 
     printf "%s\\n" "${txt[@]}"
 }
@@ -97,13 +111,12 @@ while (($#)); do
         ;;
 
     --version | -v)
-        usage
+        version
         exit 0
         ;;
 
-    \
-        --count | -c)
-        usage
+    --count | -c)
+        count
         exit 0
         ;;
 

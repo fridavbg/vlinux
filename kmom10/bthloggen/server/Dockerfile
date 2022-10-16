@@ -6,6 +6,6 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY index.js .
+COPY index.js routes.json ./
 
 ENTRYPOINT [ "npm", "start" ]
