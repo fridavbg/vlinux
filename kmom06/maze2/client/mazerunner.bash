@@ -18,7 +18,7 @@ else
 fi
 
 # Base url with port
-BASE_URL="http://mazeservercd k:${PORT}"
+BASE_URL="http://mazeserver:${PORT}"
 
 # CSV conversion
 CSV="?type=csv"

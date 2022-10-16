@@ -81,18 +81,35 @@ function version {
 # Function to get url
 #
 function app-url {
-
+    echo "Url to view server in browser is :"
     echo "$BASE_URL"
 }
 
 #
 # Function to view all entries
+# OR if url specific <url>
+# OR if ip specific <ip>
 #
 function app-view {
-
-    echo "List all entries."
-    echo "view all entries containing <url>"
-    echo "view all entries containing <ip>"
+    url="$BASE_URL/data"
+    if [ -z "$1" ]; then
+        echo "Available urls & ip addresses: "
+        curl "$url" -s | jq .
+    elif [ "$1" == 'url' ]; then
+        if [ -z "$2" ]; then
+            echo "No url was given"
+        else
+            url="$BASE_URL/data"
+        fi
+    elif [ "$1" == 'ip' ]; then
+        if [ -z "$2" ]; then
+            echo "No ip was given"
+        else
+            echo "Find ip"
+        fi
+    else
+        echo "Invalid command"
+    fi
 }
 
 #
@@ -101,9 +118,9 @@ function app-view {
 function app-use {
     if [[ "$1" == "localhost" || "$1" == "bthloggen-server" ]]; then
         echo ""
-        echo "$1" > "$SERVER_FILE"
+        echo "$1" >"$SERVER_FILE"
         echo "New server is: "
-        echo "$SERVER"
+        echo "$1"
         echo ""
     else
         echo ""
