@@ -20,8 +20,11 @@ else
     PORT=1337
 fi
 
+# Server
+SERVER_FILE="server.txt"
+SERVER=$(cat "$SERVER_FILE")
 # Base url with port
-BASE_URL="http://bthloggen-server:${PORT}"
+BASE_URL="http://${SERVER}:${PORT}"
 
 #
 # Message to display for usage and help.
@@ -79,7 +82,7 @@ function version {
 #
 function app-url {
 
-    echo "Get url to view the server in browser"
+    echo "$BASE_URL"
 }
 
 #
@@ -93,10 +96,23 @@ function app-view {
 }
 
 #
-# Function  Set the servername (localhost or service name).
+# Function set the servername (localhost or service name).
 #
 function app-use {
-    echo " Set the servername (localhost or service name)."
+    if [[ "$1" == "localhost" || "$1" == "bthloggen-server" ]]; then
+        echo ""
+        echo "$1" > "$SERVER_FILE"
+        echo "New server is: "
+        echo "$SERVER"
+        echo ""
+    else
+        echo ""
+        echo "Only servers available are "
+        echo "bthloggen-server"
+        echo "OR"
+        echo "localhost"
+        echo ""
+    fi
 }
 
 #
