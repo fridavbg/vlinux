@@ -9,9 +9,13 @@ regex_url='(https?:\/\/(www\.)?([a-zA-Z0-9]+)(\.[a-zA-Z0-9.-]+))'
 
 regex_day='(?<=\[)[0-3][1-9](?=\/)'
 # works with
-# sed -rn 's/(?<=\[)[0-3][1-9](?=\/)//p' test.log
+# sed 's/(?<=\[)[0-3][1-9](?=\/)//p' test.log
 
 regex_month='(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
+
+regex_time='((?<=:)[0-9][0-9]:[0-9][0-9]:[0-9][0-9])'
+# works with
+# sed 's/((?<=:)[0-9][0-9]:[0-9][0-9]:[0-9][0-9])//p' test.log
 
 if [[ -f $json_test ]]; then
     echo "File exits"
