@@ -11,6 +11,9 @@
 # Current version
 VERSION="1.0.0"
 
+# COUNT flag
+COUNT=false
+
 #
 # Check if PORT is assigned
 #
@@ -35,7 +38,7 @@ function usage {
         "Usage: $SCRIPT [options] <command> [arguments]"
         ""
         "Command:"
-        "  url            Get url to view the server in browser."
+        "  url                 Get url to view the server in browser."
         "  view                List all entries."
         "  view url <url>      View all entries containing <url>."
         "  view ip <ip>        View all entries containing <ip>."
@@ -43,8 +46,8 @@ function usage {
 
         ""
         "Options:"
-        "  --help, -h     Print help."
-        "  --version, -v   Display the current version"
+        "  --help, -h       Print help."
+        "  --version, -v    Display the current version"
         "  --count, -c      Display the number of rows returned"
     )
 
@@ -78,14 +81,6 @@ function version {
 }
 
 #
-# Function to display amount of matched rows.
-#
-function count {
-    echo "Number of lines are: "
-    # grep -o "}" | wc -l
-}
-
-#
 # Function to get url
 #
 function app-url {
@@ -101,19 +96,34 @@ function app-url {
 function app-view {
     url="$BASE_URL/data"
     if [ -z "$1" ]; then
-        echo "Available urls & ip addresses: "
-        curl "$url" -s | jq
+        if $COUNT; then
+            curl "$url" -s | grep -o "}" | wc -l
+            exit 0
+        else
+            echo "Available urls & ip addresses: "
+            curl "$url" -s | jq
+        fi
     elif [ "$1" == 'url' ]; then
         if [ -z "$2" ]; then
             echo "No url was given"
         else
-            curl "${url}?url=${2}" -s | jq
+            if $COUNT; then
+                echo "Total number of lines: "
+                curl "${url}?url=${2}" -s | grep -o "}" | wc -l 
+            else
+                curl "${url}?url=${2}" -s | jq
+            fi
         fi
     elif [ "$1" == 'ip' ]; then
         if [ -z "$2" ]; then
             echo "No ip was given"
         else
-            curl "${url}?ip=${2}" -s | jq
+            if $COUNT; then
+                echo "Total number of lines: "
+                curl "${url}?ip=${2}" -s | grep -o "}" | wc -l 
+            else
+                curl "${url}?ip=${2}" -s | jq
+            fi
         fi
     else
         echo "Invalid command"
@@ -157,8 +167,8 @@ while (($#)); do
         ;;
 
     --count | -c)
-        count
-        exit 0
+        COUNT=true
+        shift
         ;;
 
     url | \
