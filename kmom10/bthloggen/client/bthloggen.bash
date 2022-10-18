@@ -78,6 +78,14 @@ function version {
 }
 
 #
+# Function to display amount of matched rows.
+#
+function count {
+    echo "Number of lines are: "
+    # grep -o "}" | wc -l
+}
+
+#
 # Function to get url
 #
 function app-url {
