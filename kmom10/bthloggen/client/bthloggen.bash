@@ -12,7 +12,7 @@
 VERSION="1.0.0"
 
 #
-# Check if DBWEBB_PORT is assigned
+# Check if PORT is assigned
 #
 if [[ -n "$DBWEBB_PORT" ]]; then
     PORT=$DBWEBB_PORT
@@ -94,18 +94,18 @@ function app-view {
     url="$BASE_URL/data"
     if [ -z "$1" ]; then
         echo "Available urls & ip addresses: "
-        curl "$url" -s | jq .
+        curl "$url" -s | jq
     elif [ "$1" == 'url' ]; then
         if [ -z "$2" ]; then
             echo "No url was given"
         else
-            url="$BASE_URL/data"
+            curl "${url}?url=${2}" -s | jq
         fi
     elif [ "$1" == 'ip' ]; then
         if [ -z "$2" ]; then
             echo "No ip was given"
         else
-            echo "Find ip"
+            curl "${url}?ip=${2}" -s | jq
         fi
     else
         echo "Invalid command"
