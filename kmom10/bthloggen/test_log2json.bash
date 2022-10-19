@@ -15,7 +15,7 @@ if [[ -f $json_test ]]; then
     echo "File has been deleted"
 fi
 
-# Write regex into JSON format and save into new file
+# Write regex into JSON format and save into new
 sed -rn 's/.*('"$regex_ip"').*('"$regex_date"').*('"$regex_url"').*/{\n"ip": "\1",\n"day": "\4",\n"month": "\5",\n"time": "\7",\n"url": "\8"\n},/w '"$json_test"'' $log_test
 
 # Add [ to beginning of file
