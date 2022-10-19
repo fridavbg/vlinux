@@ -15,6 +15,61 @@ app.get("/data", (req, res) => {
             );
             return res.json(result);
         }
+        if (req.query.day) {
+            const result = jsonLog.filter((item) =>
+                item.day.includes(req.query.day)
+            );
+            return res.json(result);
+        }
+        if (req.query.month) {
+            const result = jsonLog.filter((item) =>
+                item.month.includes(req.query.month)
+            );
+            if (result.length === 0) {
+                return res.send(
+                    "Nothing was found for the month of: " + req.query.month
+                );
+            }
+            return res.json(result);
+        }
+        if (req.query.time) {
+            if (req.query.time.includes(":")) {
+                let timeArray = req.query.time.split(":");
+                const hour = timeArray[0];
+                const minute = timeArray[1];
+                const seconds = timeArray[2];
+
+                const result = jsonLog.filter((item) => {
+                    let logTimesArray = item.time.split(":");
+                    if (logTimesArray[0] === hour) {
+                        return item.time;
+                    }
+                    if (
+                        logTimesArray[0] === hour &&
+                        logTimesArray[1] === minute
+                    ) {
+                        return item.time;
+                    }
+                    if (
+                        logTimesArray[0] === hour &&
+                        logTimesArray[1] === minute &&
+                        logTimesArray[2] === seconds
+                    ) {
+                        return item.time;
+                    }
+                });
+                return res.json(result);
+            } else {
+                let hour = req.query.time;
+                const result = jsonLog.filter((item) => {
+                    let logTimesArray = item.time.split(":");
+                    if (logTimesArray[0] === hour) {
+                        return item.time;
+                    }
+                });
+                return res.json(result);
+            }
+        }
         if (req.query.url) {
             const result = jsonLog.filter((item) =>
                 item.url.includes(req.query.url)

@@ -7,7 +7,7 @@ regex_ip='([0-9]{1,3}\.){3}([0-9]{1,3})'
 
 regex_url='(https?:\/\/(www\.)?([a-zA-Z0-9]+)(\.[a-zA-Z0-9.-]+))'
 
-regex_date='([0-3][1-9]).(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec).([0-9]{4}).([0-9]{2}:[0-9]{2}:[0-9]{2})'
+regex_date='[0-3][1-9]).(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec).([0-9]{4}).([0-9][0-9]:[0-9][0-9]:[0-9][0-9]'
 
 if [[ -f $json_file ]]; then
     echo "File exits"
@@ -22,4 +22,4 @@ sed -rn 's/.*('"$regex_ip"').*('"$regex_date"').*('"$regex_url"').*/{\n"ip": "\1
 sed -i '1s/^/[\n/' $json_file
 
 # Replace last , with a ]
-sed -i '$ s/.$/\n]/' $json_file
+sed -i '$ s/.$/\]/' $json_file

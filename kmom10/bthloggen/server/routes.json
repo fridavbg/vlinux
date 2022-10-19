@@ -12,6 +12,18 @@
         "displays": "Rows that matches with given ip"
     },
     {
+        "route": "/data?day=<day>",
+        "displays": "Rows that matches with given day (in numbers e.g 11)"
+    },
+    {
+        "route": "/data?month=<month>",
+        "displays": "Rows that matches with given day (in letter e.g Aug)"
+    },
+    {
+        "route": "/data?time=<time>",
+        "displays": "Rows that matches with given time (in numbers e.g 14:12:32)"
+    },
+    {
         "route": "/data?url=<url>",
         "displays": "Rows that matches with given url"
     }
