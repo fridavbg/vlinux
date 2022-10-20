@@ -8,7 +8,7 @@ const jsonLog = require("../data/log.json");
 app.get("/", (req, res) => res.json(routes));
 
 app.get("/data", (req, res) => {
-    if (Object.entries(req.query).length > 0) {
+    if (Object.entries(req.query).length === 1) {
         if (req.query.ip) {
             const result = jsonLog.filter((item) =>
                 item.ip.includes(req.query.ip)
@@ -41,20 +41,30 @@ app.get("/data", (req, res) => {
 
                 const result = jsonLog.filter((item) => {
                     let logTimesArray = item.time.split(":");
-                    if (logTimesArray[0] === hour) {
-                        return item.time;
-                    }
-                    if (
-                        logTimesArray[0] === hour &&
-                        logTimesArray[1] === minute
-                    ) {
-                        return item.time;
-                    }
                     if (
                         logTimesArray[0] === hour &&
                         logTimesArray[1] === minute &&
                         logTimesArray[2] === seconds
                     ) {
+                        console.log(3, item.time);
+
+                        return item.time;
+                    }
+                    if (
+                        logTimesArray[0] === hour &&
+                        logTimesArray[1] === minute &&
+                        seconds === undefined
+                    ) {
+                        console.log(2, item.time);
+
+                        return item.time;
+                    } else if (
+                        logTimesArray[0] === hour &&
+                        minute === undefined &&
+                        seconds === undefined
+                    ) {
+                        console.log(1, item.time);
+
                         return item.time;
                     }
                 });
