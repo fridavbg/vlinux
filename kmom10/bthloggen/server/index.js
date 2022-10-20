@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 const port = process.env.DBWEBB_PORT || 1337;
+
 const routes = require("./routes.json");
 const jsonLog = require("../data/log.json");
 
@@ -46,8 +47,6 @@ app.get("/data", (req, res) => {
                         logTimesArray[1] === minute &&
                         logTimesArray[2] === seconds
                     ) {
-                        console.log(3, item.time);
-
                         return item.time;
                     }
                     if (
@@ -55,16 +54,12 @@ app.get("/data", (req, res) => {
                         logTimesArray[1] === minute &&
                         seconds === undefined
                     ) {
-                        console.log(2, item.time);
-
                         return item.time;
                     } else if (
                         logTimesArray[0] === hour &&
                         minute === undefined &&
                         seconds === undefined
                     ) {
-                        console.log(1, item.time);
-
                         return item.time;
                     }
                 });
@@ -89,6 +84,113 @@ app.get("/data", (req, res) => {
         return res.send(
             "Nothing was found with that property, please search for a url or an ip address"
         );
+    }
+    if (Object.entries(req.query).length === 2) {
+        if (req.query.day && req.query.time) {
+            let day = req.query.day;
+            if (req.query.time.includes(":")) {
+                let timeArray = req.query.time.split(":");
+                const hour = timeArray[0];
+                const minute = timeArray[1];
+                const seconds = timeArray[2];
+
+                const result = jsonLog.filter((item) => {
+                    let logTimesArray = item.time.split(":");
+                    if (
+                        item.day == day &&
+                        logTimesArray[0] === hour &&
+                        logTimesArray[1] === minute &&
+                        logTimesArray[2] === seconds
+                    ) {
+                        return item;
+                    } else if (
+                        item.day == day &&
+                        logTimesArray[0] === hour &&
+                        logTimesArray[1] === minute &&
+                        seconds === undefined
+                    ) {
+                        return item;
+                    } else if (
+                        logTimesArray[0] === hour &&
+                        minute === undefined &&
+                        seconds === undefined
+                    ) {
+                        return item;
+                    }
+                });
+                return res.json(result);
+            } else {
+                let hour = req.query.time;
+                const result = jsonLog.filter((item) => {
+                    let logTimesArray = item.time.split(":");
+                    if (item.day === day && logTimesArray[0] === hour) {
+                        console.log("HIT");
+
+                        return item;
+                    }
+                });
+                return res.json(result);
+            }
+        }
+    }
+    if (Object.entries(req.query).length === 3) {
+        if (req.query.month && req.query.day && req.query.time) {
+            let month = req.query.month;
+            let day = req.query.day;
+            if (req.query.time.includes(":")) {
+                let timeArray = req.query.time.split(":");
+                const hour = timeArray[0];
+                const minute = timeArray[1];
+                const seconds = timeArray[2];
+
+                const result = jsonLog.filter((item) => {
+                    let logTimesArray = item.time.split(":");
+                    if (
+                        item.month == month &&
+                        item.day == day &&
+                        logTimesArray[0] === hour &&
+                        logTimesArray[1] === minute &&
+                        logTimesArray[2] === seconds
+                    ) {
+                        return item;
+                    } else if (
+                        item.month === month &&
+                        item.day === day &&
+                        logTimesArray[0] === hour &&
+                        logTimesArray[1] === minute &&
+                        seconds === undefined
+                    ) {
+                        return item;
+                    } else if (
+                        item.month === month &&
+                        item.day === day &&
+                        logTimesArray[0] === hour &&
+                        minute === undefined &&
+                        seconds === undefined
+                    ) {
+                        return item;
+                    }
+                });
+                return res.json(result);
+            } else {
+                let hour = req.query.time;
+
+                const result = jsonLog.filter((item) => {
+                    let logTimesArray = item.time.split(":");
+                    if (
+                        item.month === month &&
+                        item.day === day &&
+                        logTimesArray[0] === hour
+                    ) {
+                        return item;
+                    }
+                });
+                if (result.length === 0) {
+                    return res.send("Nothing found from the log");
+                }
+                return res.json(result);
+            }
+        }
     }
     return res.json(jsonLog);
 });
