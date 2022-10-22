@@ -37,12 +37,27 @@ function usage {
         "Utility $SCRIPT for doing stuff."
         "Usage: $SCRIPT [options] <command> [arguments]"
         ""
-        "Command:"
-        "  url                 Get url to view the server in browser."
-        "  view                List all entries."
-        "  view url <url>      View all entries containing <url>."
-        "  view ip <ip>        View all entries containing <ip>."
-        "  use <server>        Set the servername (localhost or service name)."
+        "Commands:"
+        "  - url                 
+        Get url to view the server in browser."
+        "  - view                
+        List all entries."
+        "  - view url <url>      
+        View all entries containing <url>."
+        "  - view month <month>  
+        View all entries containing <month>."
+        "  - view day <day>      
+        View all entries containing <day>."
+        "  - view time <time>    
+        View all entries containing <time>."
+        "  - view ip <ip>        
+        View all entries containing <ip>."
+        "  - view day & time <day> & <time>     
+        View all entries containing <day> & <time>."
+        "  - view month,day & time <month>, <day> & <time>     
+        View all entries containing <month>, <day> & <time>."
+        "  - use <server>        
+        Set the servername (localhost or service name)."
 
         ""
         "Options:"
@@ -101,7 +116,7 @@ function app-view {
             exit 0
         else
             echo "Available urls & ip addresses: "
-            curl "$url" -sS | jq 
+            curl "$url" -sS | jq
         fi
     elif [ "$1" == 'url' ]; then
         if [ -z "$2" ]; then
