@@ -1,7 +1,9 @@
 const el = document.getElementById("search-options");
 
-el.addEventListener("change", function handleChange(value) {
+el.addEventListener("change", function handleChange(event) {
     let searchForm = document.createElement("form");
+    let value = event.target.value;
+
     if (value === "Day-Time") {
         searchForm.innerHTML =
             "<label>Day: </label>" +
