@@ -1,1 +1,1 @@
-bthloggen-server
+localhost

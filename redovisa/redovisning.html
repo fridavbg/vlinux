@@ -538,10 +538,44 @@
                             I scriptet bthloggen.bash så valde jag att
                             återanvända den mall som använt under tidigare
                             kursmoment, och bara återanpassa den efter
-                            kravspecifikationen. View kommandona var lättast att skapa då dem enbart med curl gör anrop emot min server. Valde även för dessa kommandon att använda jq för att få en bättre utskrift.
+                            kravspecifikationen. View kommandona var lättast att
+                            skapa då dem enbart med curl gör anrop emot min
+                            server. Valde även för dessa kommandon att använda
+                            jq för att få en bättre utskrift. En utmaning som
+                            jag hade var att hitta ett sätt att visa
+                            felmeddelande om curl misslyckades, men till slut så
+                            hittade jag optionet -sS som visar användare ett
+                            meddelande enbart vid ett fail. För count option så
+                            valde jag att använda en boolean som blir sann om
+                            användare skickar med -c, då kallas curl kommando
+                            tillsammans med grep och wc -l som returnerar antal
+                            linjer. För use kommandot så har jag lagt till ett
+                            if statement som gör det enbart möjligt för
+                            användare att byta emellan localhost och
+                            bthloggen-server. Logiken till detta är att
+                            användare ej skall kunna byta till en random server
+                            som ej existerar, då bthloggen-server är namn på
+                            servern i Docker kontainern och localhost är
+                            alternativet för den lokala miljön.
                         </p>
                         <p class="prompt">Krav 4: Mer data</p>
-                        <p>Answer</p>
+                        <p>
+                            Jag valde att utöka min log.json, då jag ville få in
+                            er träning utav att använda regex. Till att börja
+                            med så valde jag att skapa en enskild grupp för dag,
+                            tid och månad, men fick det inte riktigt att
+                            fungera. Så till slut så valde jag att skapa ett
+                            regex för datumet, och på så sätt plocka ut dag,
+                            månad och tid ifrån det. Sedan så kunde jag bara
+                            lägga till respektive grupp i mitt sed kommando och
+                            återskapa json objekt för varje match. Utmaningen
+                            här var framför allt att hitta dem mönster som man
+                            kunde använda med seds regex motor. Server tog även
+                            lite extra tid att avsluta då jag ville se till att
+                            visa ett felmeddelande om användare skriver in fel,
+                            speciellt för tiden då den kunde skrivas på fura
+                            olika sätt te x HH, HH:, HH:MM, HH:MM:SS.
+                        </p>
                         <p class="prompt">Krav 5: Webbklient</p>
                         <p>Answer</p>
                         <p class="prompt">Allmänt stycke</p>
