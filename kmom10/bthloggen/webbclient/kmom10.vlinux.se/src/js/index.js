@@ -1,5 +1,20 @@
 const el = document.getElementById("search-options");
 
+
+// fetch("http://localhost:1337")
+//     .then((response) => {
+//         if (response.ok) {
+//             return response.json();
+//         } else {
+//             throw new Error("NETWORK RESPONSE ERROR");
+//         }
+//     })
+//     .then((data) => {
+//         console.log(data);
+//     })
+//     .catch((error) => console.error("FETCH ERROR:", error));
+
+
 el.addEventListener("change", function handleChange(event) {
     let searchForm = document.createElement("form");
     let value = event.target.value;
