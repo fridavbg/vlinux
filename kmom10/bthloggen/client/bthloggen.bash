@@ -97,11 +97,11 @@ function app-view {
     url="$BASE_URL/data"
     if [ -z "$1" ]; then
         if $COUNT; then
-            curl "$url" -s | grep -o "}" | wc -l
+            curl "$url" -sS | grep -o "}" | wc -l
             exit 0
         else
             echo "Available urls & ip addresses: "
-            curl "$url" -s | jq
+            curl "$url" -sS | jq 
         fi
     elif [ "$1" == 'url' ]; then
         if [ -z "$2" ]; then
@@ -109,9 +109,9 @@ function app-view {
         else
             if $COUNT; then
                 echo "Total number of lines: "
-                curl "${url}?url=${2}" -s | grep -o "}" | wc -l 
+                curl "${url}?url=${2}" -sS | grep -o "}" | wc -l
             else
-                curl "${url}?url=${2}" -s | jq
+                curl "${url}?url=${2}" -sS | jq
             fi
         fi
     elif [ "$1" == 'ip' ]; then
@@ -120,9 +120,9 @@ function app-view {
         else
             if $COUNT; then
                 echo "Total number of lines: "
-                curl "${url}?ip=${2}" -s | grep -o "}" | wc -l 
+                curl "${url}?ip=${2}" -sS | grep -o "}" | wc -l
             else
-                curl "${url}?ip=${2}" -s | jq
+                curl "${url}?ip=${2}" -sS | jq
             fi
         fi
     else

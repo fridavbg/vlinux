@@ -517,20 +517,29 @@
                             användare vilka tidsformat som skall användas i dem
                             olika sökalternativen. Sedan den andra router heter
                             "/data" och presenterar alla data om man inte
-                            skickar med ett sökalternativ. Om man skickar med
-                            "/data?ip=168" så kommer alla objekt som har en ip
-                            innehållandes 168 visas. Min Docker image så valde
-                            jag att ta ner bas image utav node:8, kopiera in
-                            index.js och alla json filer så som routes.json
-                            (presentationen utav alla routes) samt
+                            skickar med ett sökalternativ. Om man te x skickar
+                            med "/data?ip=168" så kommer alla objekt som har en
+                            ip innehållandes 168 visas. I min Docker image så
+                            valde jag att ta ner en bas image utav node:8,
+                            kopiera in index.js och alla json filer så som
+                            routes.json (presentationen utav alla routes) samt
                             package-lock.json och package.json. Sen har jag även
                             en entrypoint som kör npm start och på så sätt
-                            sätter igång server när jag skapar en kontainer.
+                            sätter igång server när jag skapar en kontainer för
+                            att köra igång. Sedan så kan jag återanvända denna
+                            server bilden i min docker-compose.yml och på så
+                            sätt koppla den till volymen med data samt det
+                            nätverket vlinux som jag vill använda med klienten.
                         </p>
                         <p class="prompt">
                             Krav 3: Bashscript för att testa servern
                         </p>
-                        <p>Answer</p>
+                        <p>
+                            I scriptet bthloggen.bash så valde jag att
+                            återanvända den mall som använt under tidigare
+                            kursmoment, och bara återanpassa den efter
+                            kravspecifikationen. View kommandona var lättast att skapa då dem enbart med curl gör anrop emot min server. Valde även för dessa kommandon att använda jq för att få en bättre utskrift.
+                        </p>
                         <p class="prompt">Krav 4: Mer data</p>
                         <p>Answer</p>
                         <p class="prompt">Krav 5: Webbklient</p>
