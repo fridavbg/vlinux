@@ -52,9 +52,9 @@ function usage {
         View all entries containing <time>."
         "  - view ip <ip>        
         View all entries containing <ip>."
-        "  - view day & time <day> & <time>     
+        "  - view day time <day> <time>     
         View all entries containing <day> & <time>."
-        "  - view month,day & time <month>, <day> & <time>     
+        "  - view month day time <month> <day> <time>     
         View all entries containing <month>, <day> & <time>."
         "  - use <server>        
         Set the servername (localhost or service name)."
@@ -118,6 +118,28 @@ function app-view {
             echo "Available urls & ip addresses: "
             curl "$url" -sS | jq
         fi
+    elif [ "$1" == 'month' ] && [ "$2" == 'day' ] && [ "$3" == 'time' ]; then
+        if [ -z "$4" ] || [ -z "$5" ] || [ -z "$6" ]; then
+            echo "No month, day or time was given"
+        else
+            if $COUNT; then
+                echo "Total number of lines: "
+                curl "${url}?month=${4}&day=${5}&time=${6}" -sS | grep -o "}" | wc -l
+            else
+                curl "${url}?month=${4}&day=${5}&time=${6}" -sS | jq
+            fi
+        fi
+    elif [ "$1" == 'day' ] && [ "$2" == 'time' ]; then
+        if [ -z "$3" ] || [ -z "$4" ]; then
+            echo "No day or time was given"
+        else
+            if $COUNT; then
+                echo "Total number of lines: "
+                curl "${url}?day=${3}&time=${4}" -sS | grep -o "}" | wc -l
+            else
+                curl "${url}?day=${3}&time=${4}" -sS | jq
+            fi
+        fi
     elif [ "$1" == 'url' ]; then
         if [ -z "$2" ]; then
             echo "No url was given"
@@ -127,6 +149,39 @@ function app-view {
                 curl "${url}?url=${2}" -sS | grep -o "}" | wc -l
             else
                 curl "${url}?url=${2}" -sS | jq
+            fi
+        fi
+    elif [ "$1" == 'month' ]; then
+        if [ -z "$2" ]; then
+            echo "No month was given"
+        else
+            if $COUNT; then
+                echo "Total number of lines: "
+                curl "${url}?month=${2}" -sS | grep -o "}" | wc -l
+            else
+                curl "${url}?month=${2}" -sS | jq
+            fi
+        fi
+    elif [ "$1" == 'day' ]; then
+        if [ -z "$2" ]; then
+            echo "No day was given"
+        else
+            if $COUNT; then
+                echo "Total number of lines: "
+                curl "${url}?day=${2}" -sS | grep -o "}" | wc -l
+            else
+                curl "${url}?day=${2}" -sS | jq
+            fi
+        fi
+    elif [ "$1" == 'time' ]; then
+        if [ -z "$2" ]; then
+            echo "No time was given"
+        else
+            if $COUNT; then
+                echo "Total number of lines: "
+                curl "${url}?time=${2}" -sS | grep -o "}" | wc -l
+            else
+                curl "${url}?time=${2}" -sS | jq
             fi
         fi
     elif [ "$1" == 'ip' ]; then
