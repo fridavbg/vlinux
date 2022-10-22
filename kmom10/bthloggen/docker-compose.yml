@@ -20,3 +20,16 @@ services:
             vlinux:
         links: 
             - server:bthloggen-server
+    webbclient:
+        image: "fridavbg/bthloggen-webbclient:1.0"
+        container_name: bthloggen-webbclient
+        volumes:
+            - "./webbclient/kmom10.vlinux.se"
+        ports:
+            - "127.0.0.1:1338:80"
+        extra_hosts:
+            - "kmom10.vlinux.se:127.0.0.1"
+        networks:
+            vlinux:
+        links: 
+            - server:bthloggen-server
