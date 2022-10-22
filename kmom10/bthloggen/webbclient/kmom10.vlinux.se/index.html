@@ -18,7 +18,7 @@
             <h2>Log File Search</h2>
             <label for="search-options">Choose a search option:</label>
             <select
-                onChange="dropdownSelected(this.value)"
+                onchange="handleChange(this.value)"
                 name="search-options"
                 id="search-options"
             >
@@ -30,6 +30,7 @@
                 <option value="Day-Time">Day and Time</option>
                 <option value="Month-Day-Time">Month, Day and Time</option>
             </select>
+            <div id="search-form"></div>
         </div>
         <footer class="footer">
             <p>Skapad utav Frida i BTHs Vlinux kurs</p>
