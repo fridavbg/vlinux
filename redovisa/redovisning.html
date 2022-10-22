@@ -478,10 +478,47 @@
                     <!-- Kmom10 -->
                     <li>
                         <div class="question-arrow">
-                            <span class="question">kmom10</span>
+                            <span class="question">Kmom10</span>
                             <i class="bx bxs-chevron-down arrow"></i>
                         </div>
-                        <p class="prompt">PROMPT</p>
+                        <p class="prompt">
+                            Krav 1: Regex för att konvertera loggfil till JSON
+                        </p>
+                        <p>
+                            I mitt script log2json.bash så valde jag att första
+                            få ihop två separata regex, en för ip-addresser och
+                            en annan för url-addresser. Detta för att jag ville
+                            använda sed kommandot för att lättare kunna skapa en
+                            utskrift som kunde passera JSONLint. Med sed kunde
+                            jag lätta skapa ett objekt för varje regex träff och
+                            sedan justera så att alla objekten hamnar inom en
+                            array genom att lägga till "[" i början på log.json
+                            filen, och byta ut det sista kommatecknet till en
+                            "]". En utav dem största utmaningarna var att få
+                            ihop regex som fungerade med sed i kontainern och
+                            inte bara i regex101, samt veta vad som kunde
+                            användas med just GNU seds regex engine. I början på
+                            filen la jag även till ett kort if statement som tar
+                            bort log.json filen om den existerar, detta för att
+                            jag vill att varje gång som script körs så skapas en
+                            helt ny fil, och på så sätt blir det lättare om man
+                            behöver köra scriptet mer än en gång.
+                        </p>
+                        <p class="prompt">
+                            Krav 2: Server för att servera loggen
+                        </p>
+                        <p>Answer</p>
+                        <p class="prompt">
+                            Krav 3: Bashscript för att testa servern
+                        </p>
+                        <p>Answer</p>
+                        <p class="prompt">Krav 4: Mer data</p>
+                        <p>Answer</p>
+                        <p class="prompt">Krav 5: Webbklient</p>
+                        <p>Answer</p>
+                        <p class="prompt">Allmänt stycke</p>
+                        <p>Answer</p>
+                        <p class="prompt">Tankar om kursen</p>
                         <p>Answer</p>
                         <span class="line"></span>
                     </li>

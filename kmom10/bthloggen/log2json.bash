@@ -15,7 +15,7 @@ if [[ -f $json_file ]]; then
     echo "File has been deleted"
 fi
 
-# Extract lines with both ip & urls and print in JSON format
+# Extract lines with corresponding regex and print them in JSON format
 sed -rn 's/.*('"$regex_ip"').*('"$regex_date"').*('"$regex_url"').*/{\n"ip": "\1",\n"day": "\4",\n"month": "\5",\n"time": "\7",\n"url": "\8"\n},/w '"$json_file"'' $log_file
 
 # Add [ to beginning of file
