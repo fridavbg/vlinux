@@ -24,6 +24,14 @@
         "displays": "Rows that matches with given time (in numbers e.g 14:12:32)"
     },
     {
+        "route": "/data?day=<day>&time=<time>",
+        "displays": "Rows that matches with given day (in numbers e.g 11) and time (in numbers e.g 14:12:32)"
+    },
+    {
+        "route": "/data?month=<month>&day=<day>&time=<time>",
+        "displays": "Rows that matches with given month (in letter e.g Aug), day (in numbers e.g 11) and time (in numbers e.g 14:12:32)"
+    },
+    {
         "route": "/data?url=<url>",
         "displays": "Rows that matches with given url"
     }

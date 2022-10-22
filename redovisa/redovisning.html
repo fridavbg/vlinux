@@ -507,7 +507,26 @@
                         <p class="prompt">
                             Krav 2: Server för att servera loggen
                         </p>
-                        <p>Answer</p>
+                        <p>
+                            Jag valde att skapa en server med JavaScript/Express
+                            eftersom det är det språk som jag är mest bekväm i,
+                            och jag ville lägga min fokus på att förstå Docker.
+                            Server innehåller totalt två get requests. Första
+                            "/" presenterar alla routes i från en JSON, då jag
+                            kände att det var ett bra och lätt sätt att visa
+                            användare vilka tidsformat som skall användas i dem
+                            olika sökalternativen. Sedan den andra router heter
+                            "/data" och presenterar alla data om man inte
+                            skickar med ett sökalternativ. Om man skickar med
+                            "/data?ip=168" så kommer alla objekt som har en ip
+                            innehållandes 168 visas. Min Docker image så valde
+                            jag att ta ner bas image utav node:8, kopiera in
+                            index.js och alla json filer så som routes.json
+                            (presentationen utav alla routes) samt
+                            package-lock.json och package.json. Sen har jag även
+                            en entrypoint som kör npm start och på så sätt
+                            sätter igång server när jag skapar en kontainer.
+                        </p>
                         <p class="prompt">
                             Krav 3: Bashscript för att testa servern
                         </p>
