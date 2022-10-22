@@ -18,13 +18,14 @@ el.addEventListener("change", function handleChange(event) {
             "<input name='day' value='day'/>" +
             "<label>Time: </label>" +
             "<input name='time' value='time'/>";
+    } else {
+        searchForm.innerHTML = `
+        <label>${value}: </label>
+        <input
+        name='${value}' 
+        value='${value}'
+        />
+        `;
     }
-    searchForm.innerHTML = `
-    <label>${value}: </label>
-    <input
-    name='${value}' 
-    value='${value}'
-    />
-    `;
     console.log(searchForm);
 });
