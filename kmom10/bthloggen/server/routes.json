@@ -17,7 +17,7 @@
     },
     {
         "route": "/data?month=<month>",
-        "displays": "Rows that matches with given day (in letter e.g Aug)"
+        "displays": "Rows that matches with given month (in letter e.g Aug)"
     },
     {
         "route": "/data?time=<time>",
