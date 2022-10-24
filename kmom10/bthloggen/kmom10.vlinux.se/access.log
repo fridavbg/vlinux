@@ -1,0 +1,4 @@
+172.17.0.1 - - [24/Oct/2022:09:51:01 +0000] "GET / HTTP/1.1" 200 682 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+172.17.0.1 - - [24/Oct/2022:09:51:01 +0000] "GET /icons/blank.gif HTTP/1.1" 200 431 "http://kmom10.vlinux.se:1338/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+172.17.0.1 - - [24/Oct/2022:09:51:01 +0000] "GET /icons/unknown.gif HTTP/1.1" 200 529 "http://kmom10.vlinux.se:1338/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+172.17.0.1 - - [24/Oct/2022:09:51:01 +0000] "GET /favicon.ico HTTP/1.1" 404 496 "http://kmom10.vlinux.se:1338/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
